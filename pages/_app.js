@@ -48,8 +48,8 @@ onVisitorExposed={({ exposedVisitor, fromFlag }) => {
         }
     })
 }}
-envId={"bmabnbrggr14492eb9jg"}
-apiKey={"g7WzBeejX15SYqCxKJ3oP6y335hiIYsL1jAUg7ge"}
+envId={"cimqt0mqvn36gba8e49g"}
+apiKey={"fzGFlVlcAWBjKJAAAXcPfSQcAHHQkqJekDprRisp"}
 visitorData={initialVisitorData}
 initialFlagsData={initialFlagsData || {}}>
 
@@ -66,7 +66,7 @@ MyApp.getInitialProps = async (appContext) => {
 const appProps = await App.getInitialProps(appContext)
 
 //Start the Flagship SDK
-const flagship = Flagship.start("bmabnbrggr14492eb9jg", "g7WzBeejX15SYqCxKJ3oP6y335hiIYsL1jAUg7ge", {
+const flagship = Flagship.start("cimqt0mqvn36gba8e49g", "fzGFlVlcAWBjKJAAAXcPfSQcAHHQkqJekDprRisp", {
 fetchNow: false,
 })
 const initialVisitorData = {
