@@ -703,16 +703,16 @@ export default function Checkout() {
                           </div>
                         </label>
                         <div className="w-full my-6">
-                          <input type="text" id="card-number" className="select-none border-slate-300 outline-none border rounded-2xl w-full py-4 px-4 text-slate-300" readOnly={true} defaultValue={cardNumber[0]} placeholder="1111 1111 1111 1110" />
+                          <input onClick={(e) => generateCard(e)} type="text" id="card-number" className="select-none border-slate-300 outline-none border rounded-2xl w-full py-4 px-4 text-slate-300" readOnly={true} defaultValue={cardNumber[0]} placeholder="1111 1111 1111 1110" />
                           <div className="flex gap-x-2 my-4">
                             <div className="flex-1">
-                              <input type="text" id="card-date" className="select-none border-slate-300 outline-none border rounded-2xl w-full py-4 px-4 text-slate-300" readOnly={true} defaultValue={cardNumber[2]} placeholder="01/26" />
+                              <input onClick={(e) => generateCard(e)} type="text" id="card-date" className="select-none border-slate-300 outline-none border rounded-2xl w-full py-4 px-4 text-slate-300" readOnly={true} defaultValue={cardNumber[2]} placeholder="01/26" />
                             </div>
                             <div className="flex-1">
-                              <input type="text" id="card-crypto" className="select-none border-slate-300 outline-none border rounded-2xl w-full py-4 px-4 text-slate-300" readOnly={true} defaultValue={cardNumber[1]} placeholder="123" />
+                              <input onClick={(e) => generateCard(e)} type="text" id="card-crypto" className="select-none border-slate-300 outline-none border rounded-2xl w-full py-4 px-4 text-slate-300" readOnly={true} defaultValue={cardNumber[1]} placeholder="123" />
                             </div>
                           </div>
-                          <input type="text" id="card-name" className="select-none border-slate-300 outline-none border rounded-2xl w-full py-4 px-4 text-slate-300" readOnly={true} defaultValue={cardNumber[3]} placeholder="Mike Bee" />
+                          <input onClick={(e) => generateCard(e)} type="text" id="card-name" className="select-none border-slate-300 outline-none border rounded-2xl w-full py-4 px-4 text-slate-300" readOnly={true} defaultValue={cardNumber[3]} placeholder="Mike Bee" />
                           <div className="flex mt-7 justify-between">
                             <div>  
                               <h3 className="text-lg dark:text-white font-semibold leading-5 text-gray-800">Billing address</h3>
@@ -730,9 +730,6 @@ export default function Checkout() {
                                   Use a different billing address
                                 </label>
                               </div>
-                            </div>
-                            <div>
-                              <button onClick={(e) => generateCard(e)} className="bg-slate-500 px-4 py-2 rounded text-white text-sm font-medium">Generate</button>
                             </div>
                           </div>
                         </div>
@@ -830,16 +827,16 @@ export default function Checkout() {
             </div>
           </div>
           : 
-          <div className="w-72">
-            <div className="grid grid-cols-1 gap-4 py-10 px-4">
-              <div className="pt-2 text-3xl font-semibold text-gray-900">Cart</div>
-                <p className="grid grid-cols-1 gap-3">
+          <div class="w-72">
+            <div class="grid grid-cols-1 gap-4 py-10 px-4">
+              <div class="pt-2 text-3xl font-semibold text-gray-900">Cart</div>
+                <p class="grid grid-cols-1 gap-3">
                   The cart is empty
                 </p>
               <div>
                 <Link href="/products">
-                  <button className="flex items-center justify-center bg-white text-slate-600 text-bold text-sm font-medium">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" className="w-6 h-6 py-1">
+                  <button class="flex items-center justify-center bg-white text-slate-600 text-bold text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 py-1">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"></path>
                     </svg>
                     Browse products
