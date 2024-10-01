@@ -26,7 +26,7 @@ export default function Confirmation() {
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
-  }, [])
+  }, [data])
 
   async function pushTransaction() {
     sendItemView.current = sendItemView.current + 1
