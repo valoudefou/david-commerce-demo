@@ -9,23 +9,22 @@ export default function Confirmation() {
   const { hit: fsHit } = useFlagship()
 
   useEffect(() => {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "text/csv");
-    myHeaders.append("Authorization", "Bearer MDBlMzBkNTA2ZjE5M2QyMTJjZDIyN2E1ZGFjYmI3Yjk1NTE2YTRjYjg0M2I0NzIwYWVmN2RlNTZhNTgxNzc1Yw");
-    console.log(fs.visitorId)
-    var raw = 'visitor_id;value;segment;expiration\n' + fs.visitorId + ';1;APP_CONVERSION;1915598987';
+    const myHeaders = new Headers()
+    myHeaders.append("Content-Type", "text/csv")
+    myHeaders.append("Authorization", "Bearer MDBlMzBkNTA2ZjE5M2QyMTJjZDIyN2E1ZGFjYmI3Yjk1NTE2YTRjYjg0M2I0NzIwYWVmN2RlNTZhNTgxNzc1Yw")
+    const raw = 'visitor_id;value;segment;expiration\n' + fs.visitorId + ';1;APP_CONVERSION;1915598987'
     
-    var requestOptions = {
+    const requestOptions = {
       method: 'POST',
       headers: myHeaders,
       body: raw,
       redirect: 'follow'
-    };
+    }
     
     fetch("https://api-data-connector-eu.abtasty.com/accounts/fd484caef44a079844c8c94a967e630f/segments/OfflineData", requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
-      .catch(error => console.log('error', error));
+      .catch(error => console.log('error', error))
   }, [data])
 
   async function pushTransaction() {
