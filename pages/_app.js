@@ -11,8 +11,8 @@ function MyApp({ Component, pageProps, initialFlagsData, initialVisitorData }) {
     const [isShown, setIsShown] = useState(false)
 
     useEffect(() => {
-        localStorage.setItem('FS_VISITOR', initialVisitorData.id) // BYOID in localStorage
-        document.cookie = 'FS_VISITOR=' + initialVisitorData.id // BYOID in a cookie
+        localStorage.setItem('APP_FYER_ID', initialVisitorData.id) // BYOID in localStorage
+        document.cookie = 'APP_FYER_ID=' + initialVisitorData.id // BYOID in a cookie
         
         if (typeof window !== 'undefined') {
             const antiFlicker = document.querySelector('#ab-tasty-anti-flicker')
@@ -81,14 +81,15 @@ MyApp.getInitialProps = async (appContext) => {
     })
 
     const initialVisitorData = {
-        // id: '3c970578-679d-49a6-81b9-cdad6960a63b',
-        id: uuidv4(),
+        id: '3c970578-679d-49a6-81b9-cdad6960a63b', // APP_FYER_ID
+        // id: uuidv4(),
             context: {
             organisation: "whatever",
             device: 'mobile',
             store: 'US',
             subscription: 'true',
             segment: 'cosmetic',
+            preference: 'test',
             store: '1',
             profile: 'something',
             positioning: 'terrace',
