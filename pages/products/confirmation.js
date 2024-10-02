@@ -8,14 +8,12 @@ export default function Confirmation() {
   const fs = useFlagship()
   const { hit: fsHit } = useFlagship()
 
-  async function pushOfflineData() {
-    sendItemView.current = sendItemView.current + 1
-    
-    if (sendItemView.current === 1) {
+  useEffect(() => {
     const myHeaders = new Headers()
     myHeaders.append("Content-Type", "text/csv")
     myHeaders.append("Authorization", "Bearer MmRlM2NlOGE1ZGRkMDMxOWIxODJkMjIzMTI0MWU2ZDMxNTIzMDA2MjI4MGEwYmU0YzQ5YWQ0MGFlOWE4YjJjMA")
     const raw = 'visitor_id;value;segment;expiration\n' + fs.visitorId + ';1;APP_CONVERSION;1915598987'
+    
     const requestOptions = {
       method: 'POST',
       headers: myHeaders,
@@ -27,8 +25,7 @@ export default function Confirmation() {
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error))
-    }
-  }
+  }, [data])
 
   async function pushTransaction() {
     sendItemView.current = sendItemView.current + 1
@@ -101,7 +98,7 @@ export default function Confirmation() {
   return (
     <>
       <div onLoad={pushTransaction} onClick={handleRedirect} className="cursor-pointer mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8 mb-16 mt-16">
-        <div onLoad={pushOfflineData} className="flex items-center">
+        <div className="flex items-center">
           <div className="svg-container">    
             <svg className="ft-green-tick" xmlns="http://www.w3.org/2000/svg" height="65" width="65" viewBox="0 0 48 48" aria-hidden="true">
             <circle className="circle" fill="#5bb543" cx="24" cy="24" r="22"/>
