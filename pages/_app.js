@@ -11,8 +11,8 @@ function MyApp({ Component, pageProps, initialFlagsData, initialVisitorData }) {
     const [isShown, setIsShown] = useState(false)
 
     useEffect(() => {
-        localStorage.setItem('APP_FYER_ID', initialVisitorData.id) // BYOID in localStorage
-        document.cookie = 'APP_FYER_ID=' + initialVisitorData.id // BYOID in a cookie
+        localStorage.setItem('FS_VISITOR', initialVisitorData.id) // BYOID in localStorage
+        document.cookie = 'FS_VISITOR=' + initialVisitorData.id // BYOID in a cookie
         
         if (typeof window !== 'undefined') {
             const antiFlicker = document.querySelector('#ab-tasty-anti-flicker')
