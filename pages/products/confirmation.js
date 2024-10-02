@@ -8,28 +8,27 @@ export default function Confirmation() {
   const fs = useFlagship()
   const { hit: fsHit } = useFlagship()
 
-  useEffect(() => {
-    const myHeaders = new Headers()
-    myHeaders.append("Content-Type", "text/csv")
-    myHeaders.append("Authorization", "Bearer MmRlM2NlOGE1ZGRkMDMxOWIxODJkMjIzMTI0MWU2ZDMxNTIzMDA2MjI4MGEwYmU0YzQ5YWQ0MGFlOWE4YjJjMA")
-    const raw = 'visitor_id;value;segment;expiration\n' + fs.visitorId + ';1;APP_CONVERSION;1915598987'
-    const requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    }
-    console.log(fs.visitorId)
-    fetch("https://api-data-connector-eu.abtasty.com/accounts/fd484caef44a079844c8c94a967e630f/segments/OfflineData", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error))
-  }, [data])
-
   async function pushTransaction() {
     sendItemView.current = sendItemView.current + 1
     
     if (sendItemView.current === 1) {
+      useEffect(() => {
+        const myHeaders = new Headers()
+        myHeaders.append("Content-Type", "text/csv")
+        myHeaders.append("Authorization", "Bearer MmRlM2NlOGE1ZGRkMDMxOWIxODJkMjIzMTI0MWU2ZDMxNTIzMDA2MjI4MGEwYmU0YzQ5YWQ0MGFlOWE4YjJjMA")
+        const raw = 'visitor_id;value;segment;expiration\n' + fs.visitorId + ';1;APP_CONVERSION;1915598987'
+        const requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        }
+        console.log(fs.visitorId)
+        fetch("https://api-data-connector-eu.abtasty.com/accounts/fd484caef44a079844c8c94a967e630f/segments/OfflineData", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error))
+      }, [data])
       fsHit.send({
         type: HitType.TRANSACTION,
         transactionId: data.transactionId,
