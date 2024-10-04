@@ -8,23 +8,23 @@ export default function Confirmation() {
   const fs = useFlagship()
   const { hit: fsHit } = useFlagship()
 
-  useEffect(() => {
-    const myHeaders = new Headers()
-    myHeaders.append("Content-Type", "text/csv")
-    myHeaders.append("Authorization", "Bearer Y2I0MWY4ZGQ1YWE1ZmM5ZmUxOTg2MDI4YTE4ZmE5ODM3MWFhYjhjY2NlOTUwODEyZGJjZThiYjgwODZhOGVlOQ")
-    const raw = 'visitor_id;value;segment;expiration\n' + fs.visitorId + ';1;APP_CONVERSION;1915598987'
-    const requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    }
-    console.log(fs.visitorId)
-    fetch("https://api-data-connector-eu.abtasty.com/accounts/fd484caef44a079844c8c94a967e630f/segments/OfflineData", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error))
-  }, [data])
+  // useEffect(() => {
+  //   const myHeaders = new Headers()
+  //   myHeaders.append("Content-Type", "text/csv")
+  //   myHeaders.append("Authorization", "Bearer Y2I0MWY4ZGQ1YWE1ZmM5ZmUxOTg2MDI4YTE4ZmE5ODM3MWFhYjhjY2NlOTUwODEyZGJjZThiYjgwODZhOGVlOQ")
+  //   const raw = 'visitor_id;value;segment;expiration\n' + fs.visitorId + ';1;APP_CONVERSION;1915598987'
+  //   const requestOptions = {
+  //     method: 'POST',
+  //     headers: myHeaders,
+  //     body: raw,
+  //     redirect: 'follow'
+  //   }
+  //   console.log(fs.visitorId)
+  //   fetch("https://api-data-connector-eu.abtasty.com/accounts/fd484caef44a079844c8c94a967e630f/segments/OfflineData", requestOptions)
+  //     .then(response => response.text())
+  //     .then(result => console.log(result))
+  //     .catch(error => console.log('error', error))
+  // }, [data])
 
   async function pushTransaction() {
     sendItemView.current = sendItemView.current + 1
@@ -38,6 +38,21 @@ export default function Confirmation() {
         currency: 'EUR',
         shippingCosts: confirmation.delivery_fee
       })
+      const myHeaders = new Headers()
+      myHeaders.append("Content-Type", "text/csv")
+      myHeaders.append("Authorization", "Bearer Y2I0MWY4ZGQ1YWE1ZmM5ZmUxOTg2MDI4YTE4ZmE5ODM3MWFhYjhjY2NlOTUwODEyZGJjZThiYjgwODZhOGVlOQ")
+      const raw = 'visitor_id;value;segment;expiration\n' + fs.visitorId + ';1;APP_CONVERSION;1915598987'
+      const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      }
+      console.log(fs.visitorId)
+      fetch("https://api-data-connector-eu.abtasty.com/accounts/fd484caef44a079844c8c94a967e630f/segments/OfflineData", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error))
     }
   }
 
