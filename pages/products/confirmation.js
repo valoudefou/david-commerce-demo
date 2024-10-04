@@ -5,15 +5,19 @@ export default function Confirmation() {
   const [data, setData] = useState('')
   const [confirmation, setConfirmation] = useState('')
   const sendItemView = useRef(0) // Prevent pushTransaction() from being called multiple times
+  const sendOfflineData = useRef(0) // Prevent sendOfflineData() from being called multiple times
   const fs = useFlagship()
   const { hit: fsHit } = useFlagship()
 
-  useEffect(() => {
+
+  async function pushTransaction() {
+    sendOfflineData.current = sendOfflineData.current + 1
+    
+    if (sendOfflineData.current === 1) {
     const myHeaders = new Headers()
     myHeaders.append("Content-Type", "text/csv")
     myHeaders.append("Authorization", "Bearer MmRlM2NlOGE1ZGRkMDMxOWIxODJkMjIzMTI0MWU2ZDMxNTIzMDA2MjI4MGEwYmU0YzQ5YWQ0MGFlOWE4YjJjMA")
     const raw = 'visitor_id;value;segment;expiration\n' + fs.visitorId + ';1;APP_CONVERSION;1915598987'
-    
     const requestOptions = {
       method: 'POST',
       headers: myHeaders,
@@ -25,7 +29,8 @@ export default function Confirmation() {
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error))
-  }, [data])
+    }
+  }
 
   async function pushTransaction() {
     sendItemView.current = sendItemView.current + 1
