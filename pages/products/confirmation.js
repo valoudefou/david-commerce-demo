@@ -11,7 +11,7 @@ export default function Confirmation() {
   useEffect(() => {
     const myHeaders = new Headers()
     myHeaders.append("Content-Type", "text/csv")
-    myHeaders.append("Authorization", "Bearer MmRlM2NlOGE1ZGRkMDMxOWIxODJkMjIzMTI0MWU2ZDMxNTIzMDA2MjI4MGEwYmU0YzQ5YWQ0MGFlOWE4YjJjMA")
+    myHeaders.append("Authorization", "Bearer Y2I0MWY4ZGQ1YWE1ZmM5ZmUxOTg2MDI4YTE4ZmE5ODM3MWFhYjhjY2NlOTUwODEyZGJjZThiYjgwODZhOGVlOQ")
     const raw = 'visitor_id;value;segment;expiration\n' + fs.visitorId + ';1;APP_CONVERSION;1915598987'
     
     const requestOptions = {
