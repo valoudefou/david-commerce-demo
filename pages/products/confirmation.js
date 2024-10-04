@@ -30,7 +30,7 @@ export default function Confirmation() {
         body: raw,
         redirect: 'follow'
       }
-      console.log(raw + ' is sent to AB Tasty')
+      console.log(raw)
       fetch("https://api-data-connector-eu.abtasty.com/accounts/fd484caef44a079844c8c94a967e630f/segments/OfflineData", requestOptions)
       .then(response => response.text())
       .catch(error => console.log('error', error))
