@@ -7,7 +7,7 @@ export default function Confirmation() {
   const sendItemView = useRef(0) // Prevent pushTransaction() from being called multiple times
   const fs = useFlagship()
   const { hit: fsHit } = useFlagship()
-  
+
   async function pushTransaction() {
     sendItemView.current = sendItemView.current + 1
     
@@ -33,7 +33,6 @@ export default function Confirmation() {
       console.log(fs.visitorId)
       fetch("https://api-data-connector-eu.abtasty.com/accounts/fd484caef44a079844c8c94a967e630f/segments/OfflineData", requestOptions)
       .then(response => response.text())
-      .then(result => console.log(result))
       .catch(error => console.log('error', error))
     }
   }
