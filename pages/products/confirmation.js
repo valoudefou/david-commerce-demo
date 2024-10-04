@@ -5,12 +5,12 @@ export default function Confirmation() {
   const [data, setData] = useState('')
   const [confirmation, setConfirmation] = useState('')
   const sendItemView = useRef(0) // Prevent pushTransaction() from being called multiple times
-  const sendOfflineData = useRef(0) // Prevent sendOfflineData() from being called multiple times
+  const sendOfflineData = useRef(0) // Prevent sendUdc() from being called multiple times
   const fs = useFlagship()
   const { hit: fsHit } = useFlagship()
 
 
-  async function pushTransaction() {
+  async function sendUdc() {
     sendOfflineData.current = sendOfflineData.current + 1
     
     if (sendOfflineData.current === 1) {
@@ -103,7 +103,7 @@ export default function Confirmation() {
   return (
     <>
       <div onLoad={pushTransaction} onClick={handleRedirect} className="cursor-pointer mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8 mb-16 mt-16">
-        <div className="flex items-center">
+        <div onLoad={sendUdc} className="flex items-center">
           <div className="svg-container">    
             <svg className="ft-green-tick" xmlns="http://www.w3.org/2000/svg" height="65" width="65" viewBox="0 0 48 48" aria-hidden="true">
             <circle className="circle" fill="#5bb543" cx="24" cy="24" r="22"/>
