@@ -12,8 +12,7 @@ export default function Confirmation() {
     sendItemView.current = sendItemView.current + 1
 
     if (sendItemView.current === 1) {
-      fsHit.send({
-        type: HitType.TRANSACTION,
+      fs.sendHits({
         transactionId: data.transactionId,
         totalRevenue: data.productPrice,
         affiliation: 'Purchase',
@@ -31,6 +30,7 @@ export default function Confirmation() {
         redirect: 'follow'
       }
       console.log(raw)
+      console.log(fs.visitorId)
       fetch("https://api-data-connector-eu.abtasty.com/accounts/fd484caef44a079844c8c94a967e630f/segments/OfflineData", requestOptions)
       .then(response => response.text())
       .catch(error => console.log('error', error))
