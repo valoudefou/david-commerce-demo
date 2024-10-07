@@ -13,6 +13,7 @@ export default function Confirmation() {
 
     if (sendItemView.current === 1) {
       fs.sendHits({
+        type: HitType.TRANSACTION,
         transactionId: data.transactionId,
         totalRevenue: data.productPrice,
         affiliation: 'Purchase',
