@@ -10,9 +10,9 @@ export default function Confirmation() {
 
   async function pushTransaction() {
     sendItemView.current = sendItemView.current + 1
-    
+
     if (sendItemView.current === 1) {
-      fs.sendHits({
+      fsHit.send({
         type: HitType.TRANSACTION,
         transactionId: data.transactionId,
         totalRevenue: data.productPrice,
@@ -20,6 +20,20 @@ export default function Confirmation() {
         currency: 'EUR',
         shippingCosts: confirmation.delivery_fee
       })
+      const myHeaders = new Headers()
+      myHeaders.append("Content-Type", "text/csv")
+      myHeaders.append("Authorization", "Bearer Y2I0MWY4ZGQ1YWE1ZmM5ZmUxOTg2MDI4YTE4ZmE5ODM3MWFhYjhjY2NlOTUwODEyZGJjZThiYjgwODZhOGVlOQ")
+      const raw = 'visitor_id;value;segment;expiration\n' + fs.visitorId + ';1;APP_CONVERSION;1915598987'
+      const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      }
+      console.log(raw)
+      fetch("https://api-data-connector-eu.abtasty.com/accounts/fd484caef44a079844c8c94a967e630f/segments/OfflineData", requestOptions)
+      .then(response => response.text())
+      .catch(error => console.log('error', error))
     }
   }
 
@@ -48,7 +62,7 @@ export default function Confirmation() {
 
   const pushGaData = () => {
     window.dataLayer = window.dataLayer || []
-    
+
     window.dataLayer.push({
       event: 'purchase',
       ecommerce: {
@@ -78,7 +92,7 @@ export default function Confirmation() {
 
   return (
     <>
-      <div onLoad={pushTransaction} onClick={handleRedirect} className="confirmation cursor-pointer mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8 mb-16 mt-16">
+      <div onLoad={pushTransaction} onClick={handleRedirect} className="cursor-pointer mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8 mb-16 mt-16">
         <div className="flex items-center">
           <div className="svg-container">    
             <svg className="ft-green-tick" xmlns="http://www.w3.org/2000/svg" height="65" width="65" viewBox="0 0 48 48" aria-hidden="true">
