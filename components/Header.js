@@ -40,7 +40,7 @@ const { hit: fsHit } = useFlagship()
             <div className="mt-10 flex justify-center">
               <Link href="/products">
                 <button onClick={()=>{
-                    fsHit.send({
+                    fsHit.sendhits({
                       type: HitType.EVENT,
                       category: "Action Tracking",
                       action: "Click Discover",
