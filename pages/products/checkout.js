@@ -36,7 +36,7 @@ export default function Checkout() {
   const [postcode, setPostCode] = useState("")
   const [phone, setPhone] = useState("")
   const [country, setCountry] = useState('United Kingdom')
-  const [delivery, setDelivery] = useState([,flagDeliveryFeeEvri.getValue()])
+  const [delivery, setDelivery] = useState([flagDeliveryFeeEvri])
   const [cardNumber, setCardNumber] = useState("")
 
   // const [inputs, setInputs] = useState(initialValues)
