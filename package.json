@@ -12,7 +12,8 @@
     "contentful": "^10.2.2",
     "googleapis": "^118.0.0",
     "react-ga4": "^2.1.0",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.0",
