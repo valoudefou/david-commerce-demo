@@ -24,7 +24,7 @@ const flagBackgroundColor = useFsFlag("flagBackgroundColor", "black")
                 priority
                 layout='fill'
                 className="h-full w-full object-cover"
-                src={flagImageSrc.getValue()}
+                src={flagImageSrc}
                 alt={flagIndustry.getValue()}
               />
               <div className="absolute inset-0" />
