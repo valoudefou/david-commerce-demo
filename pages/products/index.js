@@ -1,7 +1,7 @@
 import ProductCard from '../../components/ProductCard'
 import Navbar from '../../components/Navbar'
 
-export default function Index( {products} ) {
+export default function Index({ products }) {
     return (
         <>
             <Navbar />
@@ -26,7 +26,7 @@ export default function Index( {products} ) {
 }
 
 export async function getStaticProps() {
-    const res = await fetch('https://dummyjson.com/product?limit=0')
+    const res = await fetch('https://dummyjson.com/products?limit=0')
     const data = await res.json()
 
     return {

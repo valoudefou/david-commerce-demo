@@ -1,151 +1,132 @@
+import Link from "next/link"
+import { useFsFlag } from "@flagship.io/react-sdk"
 import { useState, useEffect, useContext } from "react"
 import { AppContext } from "../pages/_app"
-import { useFsFlag } from "@flagship.io/react-sdk"
-import SlidingCart from "./SlidingCart"
-import MiniCart from "./MiniCart"
-import Link from 'next/link'
-import Footer from "./Footer"
+import Image from "next/image"
 
-export default function Navbar() {
-    const [isShown, setIsShown] = useContext(AppContext)
-    const [cartContent, setHtmlContent] = useState(true)
-    const [burgerOn, setBurgerOn] = useState(false)
-    const [searchOpen, setSearchOpen] = useState(false)
+function SlidingCart() {
+  const [isShown, setIsShown] = useContext(AppContext)
 
-    useEffect(() => {
-        const storedHtml = localStorage.getItem('currentProduct')
-        if (storedHtml) {
-            setHtmlContent(true)
-        } 
-        else  if (!storedHtml) {
-            setHtmlContent(false)
-  
-        }
-    }, [isShown])
+  async function handleRemoveItem () {
+    setIsShown(false)
+    const itemName = 'currentProduct'
+    localStorage.removeItem(itemName)
+    window.dataLayer = window.dataLayer || []
 
-    // Get flag 
-    const flagIndustry = useFsFlag("flagIndustry", "Product")
-    const flagCartFeature = useFsFlag("flagCartFeature", "MiniCart")
-    const flagBackgroundColor = useFsFlag("flagBackgroundColor", "black")
+    window.dataLayer.push({
+      event: 'remove_from_cart',
+      ecommerce: {
+        'currency': 'EUR',
+        'value': data.productPrice,
+        items: [{
+          'item_id': data.productId,
+          'item_name': data.productTitle,
+          'item_category': data.productCategory,
+          'price': data.productPrice,
+          'quantity': data.productQuantity
+        }]
+      }
+    })
+  }
 
-    return (
-        <>
-            {searchOpen && (
-                <div onClick={() => setSearchOpen(!searchOpen)} className="h-screen w-screen top-0 z-20 bg-gray-800 fixed opacity-25"></div>
-            )}
-            {searchOpen && (
-                <div className="sm:hidden bg-white fixed w-full px-6 py-6 z-30 border-b-[1px] border-gray-200">
-                    <input type="text" className="epoq_search_box w-full ui-autocomplete-input block p-4 font-light pl-10 text-gray-900 bg-gray-50 border rounded-2xl border-gray-200 focus:pl-10" placeholder='Search term ...' />
-                    <div className="absolute top-11 left-9 items-center">
-                        <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
-                    </div>
+  const [cartContent, setHtmlContent] = useState('')
+  const [data, setData] = useState('')
+
+  const handleClick = () => {
+    setHtmlContent(false)
+  }
+
+  useEffect(() => {
+    const storedHtml = localStorage.getItem('currentProduct')
+    const cartContent = '<p className="font-semibold">1 item in your basket</p>'
+
+    if (storedHtml) {
+      setHtmlContent(cartContent)
+      const value = window.localStorage.getItem('currentProduct')
+      setData(JSON.parse(value))
+    }
+  }, [])
+
+  // Get flag 
+  const paymentFeature1Click = useFsFlag("paymentFeature1Click", "false")
+
+  return (
+    <div>
+      <div onClick={() => setIsShown(!isShown)} className="h-screen w-screen top-0 z-20 bg-gray-800 fixed opacity-25"></div>
+      <div className="flex-auto h-screen top-0 z-20 fixed right-0 bg-white p-6 border border-gray-200">
+        <div className="w-64">
+          <div className="text-3xl font-semibold text-gray-900 pt-20">
+            Cart
+          </div>
+          {cartContent ? (
+            <div className="grid grid-cols-1 gap-3 py-[15px]" dangerouslySetInnerHTML={{ __html: cartContent }} />
+            ) : (
+            <p className="grid grid-cols-1 gap-3 py-[15px]">
+              The cart is empty
+            </p>
+          )}
+          <div className="flex items-center justify-between">
+            {cartContent && (
+              <div className="flex flex-col text-gray-700 font-light justify-around pr-5">
+                <span className="text-gray-900 font-light text-sm mt-2">{data.productTitle}</span>
+                <div className="flex items-center">      
+                  <span className="text-gray-500 font-light text-sm">{data.productQuantity} x</span>
+                  <span className="text-gray-500 font-light text-sm px-2">{data.productPrice} €</span>
                 </div>
+              </div>
             )}
-            <nav className="relative w-full z-20 flex flex-wrap items-center lg:justify-between sm:px-5 sm:py-2 px-2 py-2 bg-white border-b-[1px] border-gray-200">
-                <div className="flex flex-auto items-center justify-between">
-                    <nav className="sm:px-0 lg:hidden relative flex lg:justify-between items-center bg-white">
-                        <div className="lg:hidden">
-                            <button onClick={() => setBurgerOn(!burgerOn)} className="navbar-burger flex items-center text-black p-3">
-                                <svg className="block h-5 w-5 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </nav>
-                    {burgerOn && (  
-                        <div className="navbar-menu relative z-40">
-                            <div onClick={() => setBurgerOn(!burgerOn)} className="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>  
-                            <nav className="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
-                                <div className="flex justify-between items-center mb-6">
-                                    <div className="text-2xl px-4 font-bold leading-relaxed inline-block py-3 whitespace-nowrap uppercase text-gray-900">
-                                        {flagIndustry.getValue()}
-                                        <span className="text-sm font-thin py-1 absolute">®</span>
-                                    </div>
-                                    <button onClick={() => setBurgerOn(!burgerOn)} className="navbar-close pr-3">
-                                        <svg className="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <div>
-                                    <ul>
-                                        <li className="mb-1">
-                                            <div className="block p-3 text-sm font-mormal text-gray-900 rounded">Documentation</div>
-                                        </li>
-                                        <li className="mb-1">
-                                            <div className="block p-3 text-sm font-mormal text-gray-900 rounded">Contact</div>
-                                        </li>
-                                        <li className="mb-1">
-                                            <div className="block p-3 text-sm font-mormal text-gray-900 rounded">About</div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <Footer />
-                            </nav> 
-                        </div>
-                    )} 
-                    <div className="relative mr-auto flex justify-start lg:w-auto lg:static lg:block lg:justify-start">
-                        <Link href='/'>
-                            <div className="text-2xl px-5 font-bold leading-relaxed inline-block py-3 whitespace-nowrap uppercase text-gray-900">
-                                {flagIndustry.getValue()}
-                                <span className="text-sm font-thin py-1 absolute">®</span>
-                            </div>
-                        </Link>
-                    </div> 
-                    <div className="mr-auto">
-                        <div className="hidden sm:flex relative">
-                            <div className="absolute top-3 left-3 items-center">
-                                <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
-                            </div>
-                            <input type="text" className="epoq_search_box w-96 ui-autocomplete-input block p-2 font-light pl-10 text-gray-900 bg-gray-50 rounded-2xl border border-gray-200 focus:pl-10" placeholder='Search term ...' />
-                        </div>
-                    </div>
-                        <div className="md:px-5 md:py-0 xl:py-0 px-3 lg:py-0 py-3 lg:flex items-center">
-                            <ul className="hidden flex-col lg:flex lg:flex-row list-none">
-                                <li className="nav-item">
-                                    <p className="my-1 text-sm text-gray-900 hover:text-gray-700 font-mormal md:mx-4 md:my-0">
-                                        <Link href='/blog/content-1'><span className="ml-2">Documentation</span></Link>
-                                    </p>
-                                </li>
-                                <li className="nav-item">
-                                    <p className="my-1 text-sm text-gray-900 hover:text-gray-700 font-mormal md:mx-4 md:my-0">
-                                        <span className="ml-2">Contact</span>
-                                    </p>
-                                </li>
-                                <li className="nav-item">
-                                    <p className="my-1 text-sm text-gray-900 hover:text-gray-700 font-mormal md:mx-4 md:my-0">
-                                        <span className="ml-2">About</span>
-                                    </p>
-                                </li>
-                            </ul>
-                            <div className="flex">
-                            <div onClick={() => setSearchOpen(!searchOpen)} className="pr-2 flex justify-center cursor-pointer">
-                                <p className="sm:hidden relative text-gray-900 hover:text-gray-700" target="_blank">
-                                    <svg className="w-6 h-6 text-gray-900" stroke="white" strokeWidth="0.8" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path>
-                                    </svg>
-                                </p>
-                            </div>
-                            <div onClick={() => setIsShown(!isShown)} className="pl-3 flex justify-center lg:pl-5 sm:px-0 cursor-pointer lg:py-3 md:block">
-                                <p className="relative text-gray-900 hover:text-gray-700" target="_blank">
-                                    <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.70711 15.2929C4.07714 15.9229 4.52331 17 5.41421 17H17M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM9 19C9 20.1046 8.10457 21 7 21C5.89543 21 5 20.1046 5 19C5 17.8954 5.89543 17 7 17C8.10457 17 9 17.8954 9 19Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                    </svg>
-                                    {cartContent && (
-                                    <span style={{backgroundColor: flagBackgroundColor.getValue()}} className="absolute top-0 left-0 rounded-full bg-indigo-100 text-gray-900 p-1 text-sm"></span>
-                                    )}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            {isShown && flagCartFeature.getValue() === 'MiniCart' && (    
-                <MiniCart />
+            <div>
+              {cartContent && (
+                <Image
+                  src={data.productImage}
+                  alt=""
+                  width={70}
+                  height={70}
+                />
+              )}
+            </div>
+            {cartContent && (
+              <button onClick={handleClick} className="navbar-close ml-5">
+                <svg onClick={() => [handleRemoveItem()]} className="h-5 w-5 text-gray-400 cursor-pointer hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
             )}
-            {isShown && flagCartFeature.getValue() === 'SlidingCart' && (    
-                <SlidingCart />
-            )}
-        </>
-    )
+          </div>
+          {cartContent && (
+            <div className="flex justify-between border-t-[1px] py-3 mt-6 text-lg">
+              <span className="text-gray-500">
+                Total
+              </span>
+              <span className="text-gray-500">{data.productPrice} €</span>
+            </div>
+          )}
+          {cartContent && (
+            <div className="flex justify-between mt-3">
+              {paymentFeature1Click.getValue() === 'true' &&
+                <Link href='/products/confirmation'>
+                  <button className="flex items-center justify-center text-base font-medium bg-black text-white text-bold py-3 px-6 rounded-full hover:bg-neutral-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" viewBox="0 0 24 24" width="18px" height="18px">    
+                      <path d="M 16.125 1 C 14.972 1.067 13.648328 1.7093438 12.861328 2.5273438 C 12.150328 3.2713438 11.589359 4.3763125 11.818359 5.4453125 C 13.071359 5.4783125 14.329031 4.8193281 15.082031 3.9863281 C 15.785031 3.2073281 16.318 2.12 16.125 1 z M 16.193359 5.4433594 C 14.384359 5.4433594 13.628 6.5546875 12.375 6.5546875 C 11.086 6.5546875 9.9076562 5.5136719 8.3476562 5.5136719 C 6.2256562 5.5146719 3 7.4803281 3 12.111328 C 3 16.324328 6.8176563 21 8.9726562 21 C 10.281656 21.013 10.599 20.176969 12.375 20.167969 C 14.153 20.154969 14.536656 21.011 15.847656 21 C 17.323656 20.989 18.476359 19.367031 19.318359 18.082031 C 19.922359 17.162031 20.170672 16.692344 20.638672 15.652344 C 17.165672 14.772344 16.474672 9.1716719 20.638672 8.0136719 C 19.852672 6.6726719 17.558359 5.4433594 16.193359 5.4433594 z"/>
+                    </svg>
+                    Pay
+                  </button>
+                </Link>
+              }
+              <Link href='/products/checkout'>
+                <button className="flex items-center justify-center py-3 px-6 bg-white border hover:bg-gray-50 border-slate-600 text-slate-600 text-semibold text-sm rounded-full font-medium">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" className="w-6 h-6 py-1">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
+                  </svg>
+                  Checkout
+                </button>
+              </Link>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
 }
+
+export default SlidingCart
