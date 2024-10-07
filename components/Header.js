@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { HitType, useFlagship, useFsFlag } from "@flagship.io/react-sdk"
+import { HitType, useFsFlag } from "@flagship.io/react-sdk"
 import Link from 'next/link'
 import Navbar from '../components/Navbar'
 
@@ -7,7 +7,8 @@ export default function Header() {
 const fs = useFsFlag()
 
 // Get flag 
-const flagImageSrc = useFsFlag("flagImageSrc", "/jewelry.jpg")
+const flagImageSrcVal = useFsFlag("flagImageSrc")
+const flagImageSrc = flagImageSrcVal.getValue("/jewelry.jpg")
 const flagBtnText = useFsFlag("flagBtnText", "Shop")
 const flagIndustry = useFsFlag("flagIndustry", "Product")
 const flagBackgroundColor = useFsFlag("flagBackgroundColor", "black")
