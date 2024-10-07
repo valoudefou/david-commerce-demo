@@ -48,7 +48,7 @@ const flagBackgroundColor = getFlag("flagBackgroundColor", "black")
                       category: EventCategory.USER_ENGAGEMENT,
                       action: "click",
                       label: "label",
-                      value: 100,
+                      value: 100
                     })
                   }}
                   className="flex items-center justify-center py-4 px-8 bg-white border hover:bg-gray-50 border-slate-600 text-slate-600 text-bold text-sm rounded-full font-medium" id="ab-btn">
