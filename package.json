@@ -1,5 +1,5 @@
 {
-  "name": "david-commerce-demo",
+  "name": "val-commerce-demo",
   "private": true,
   "scripts": {
     "dev": "next dev",

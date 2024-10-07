@@ -81,7 +81,7 @@ MyApp.getInitialProps = async (appContext) => {
     })
 
     const initialVisitorData = {
-        id: '4c970578-679d-49a6-81b9-cdad6960a63b', // APP_FYER_ID
+        id: '4c970578-679d-49a6-81b9-cdad6960a63b',
         // id: uuidv4(),
             context: {
             organisation: "whatever",
@@ -89,7 +89,6 @@ MyApp.getInitialProps = async (appContext) => {
             store: 'US',
             subscription: 'true',
             segment: 'cosmetic',
-            preference: 'test',
             store: '1',
             profile: 'something',
             positioning: 'terrace',
