@@ -1,13 +1,18 @@
 import { useEffect, useState, useRef } from "react"
-import { useFsFlag } from "@flagship.io/react-sdk"
+import { HitType, useFsFlag, useFlagship } from "@flagship.io/react-sdk"
 import Link from "next/link"
 
 export default function Checkout() {
+  const fs = useFsFlag()
+  const { getFlag } = useFlagship()
+
   // Get flag 
   const paymentFeature1Click = useFsFlag("paymentFeature1Click", "false")
   const flagIndustry = useFsFlag("flagIndustry", "Product")
-  const flagDeliveryFeeDpd = useFsFlag("flagDeliveryFeeDpd", 7.99)
-  const flagDeliveryFeeEvri = useFsFlag("flagDeliveryFeeEvri", 3.99)
+  const flagDeliveryFeeDpdVal = useFsFlag("flagDeliveryFeeDpd")
+  const flagDeliveryFeeDpd = flagDeliveryFeeDpdVal.getValue(7.99)
+  const flagDeliveryFeeEvriVal = useFsFlag("flagDeliveryFeeEvri")
+  const flagDeliveryFeeEvri = flagDeliveryFeeEvriVal.getValue(3.99)
   // KEY
   const API_KEY = process.env.NEXT_PUBLIC_GETADDRESS_KEY
   // STATES
@@ -643,7 +648,7 @@ export default function Checkout() {
                       <h3 className="text-lg dark:text-white font-semibold leading-5 text-gray-800">Delivery options</h3>
                       <label htmlFor="dpd" className={delivery.includes("dpd") ? "relative cursor-pointer py-6 sm:px-8 px-4 border-amber-400 bg-[#fffaf9] border-2 rounded-2xl" : "relative border-slate-300 cursor-pointer py-6 sm:px-8 px-4 border rounded-2xl"}>
                         <div className="flex items-center">
-                          <input onChange={(e) => addShipping(e)} name="delivery" type="radio" value={flagDeliveryFeeDpd.getValue()} id="dpd" className="sm:mr-8 mr-4 align-center w-5 h-5 text-blue-600 bg-gray-100 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"/>
+                          <input onChange={(e) => addShipping(e)} name="delivery" type="radio" value={flagDeliveryFeeDpd} id="dpd" className="sm:mr-8 mr-4 align-center w-5 h-5 text-blue-600 bg-gray-100 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"/>
                           <div className="flex justify-center items-center space-x-4">
                             <div className="w-8 h-8">
                               <img className="w-full h-full" alt="logo" src="/dpd.png" />
@@ -655,7 +660,7 @@ export default function Checkout() {
                             </div>
                           </div>
                           <div className="flex ml-auto">
-                            <p className="text-base font-semibold leading-6 dark:text-white text-gray-800">{flagDeliveryFeeDpd.getValue()} €</p>
+                            <p className="text-base font-semibold leading-6 dark:text-white text-gray-800">{flagDeliveryFeeDpd} €</p>
                           </div>
                         </div>
                       </label>
