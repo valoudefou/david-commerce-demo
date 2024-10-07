@@ -22,7 +22,7 @@ export default function Confirmation() {
       })
       const myHeaders = new Headers()
       myHeaders.append("Content-Type", "text/csv")
-      myHeaders.append("Authorization", "Bearer Y2I0MWY4ZGQ1YWE1ZmM5ZmUxOTg2MDI4YTE4ZmE5ODM3MWFhYjhjY2NlOTUwODEyZGJjZThiYjgwODZhOGVlOQ")
+      myHeaders.append("Authorization", "Bearer ZGFhMjA0ZDE5NTllYmE3NzY3YjZmYmQ2NjZlYzBjNmE1NjUxMzI3ZmQzZDM5MDZmZjg2ZjM2ZGJkYWUwZTFmZQ")
       const raw = 'visitor_id;value;segment;expiration\n' + fs.visitorId + ';1;APP_CONVERSION;1915598987'
       const requestOptions = {
         method: 'POST',
