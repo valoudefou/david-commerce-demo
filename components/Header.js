@@ -4,14 +4,13 @@ import Link from 'next/link'
 import Navbar from '../components/Navbar'
 
 export default function Header() {
-const fs = useFlagship()
+const fs = useFsFlag()
 
 // Get flag 
 const flagImageSrc = useFsFlag("flagImageSrc", "/jewelry.jpg")
 const flagBtnText = useFsFlag("flagBtnText", "Shop")
 const flagIndustry = useFsFlag("flagIndustry", "Product")
 const flagBackgroundColor = useFsFlag("flagBackgroundColor", "black")
-const { hit: fsHit } = useFlagship()
 
   return (
     <header className="relative">
@@ -41,6 +40,7 @@ const { hit: fsHit } = useFlagship()
               <Link href="/products">
                 <button onClick={()=>{
                     fs.sendHits({
+                      type: HitType.EVENT,
                       category: "Action Tracking",
                       action: "Click Discover",
                       label: "Engagement"
