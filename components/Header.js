@@ -4,18 +4,18 @@ import Link from 'next/link'
 import Navbar from '../components/Navbar'
 
 export default function Header() {
-const { getFlag } = useFlagship()
-const fs = useFlagship()
+  const { getFlag } = useFlagship()
+  const fs = useFlagship()
 
-// Get flag 
-const flagImageSrcVal = getFlag("flagImageSrc")
-const flagImageSrc = flagImageSrcVal.getValue("/cosmetic.jpg")
-const flagBtnTextVal = getFlag("flagBtnText", "Shop")
-const flagBtnText = flagBtnTextVal.getValue()
-const flagIndustryVal = useFsFlag("flagIndustry")
-const flagIndustry = flagIndustryVal.getValue("Product")
-const flagBackgroundColorVal = getFlag("flagBackgroundColor")
-const flagBackgroundColor = flagBackgroundColorVal.getValue("black")
+  // Get flag 
+  const flagImageSrcVal = getFlag("flagImageSrc")
+  const flagImageSrc = flagImageSrcVal.getValue("/cosmetic.jpg")
+  const flagBtnTextVal = getFlag("flagBtnText", "Shop")
+  const flagBtnText = flagBtnTextVal.getValue()
+  const flagIndustryVal = useFsFlag("flagIndustry")
+  const flagIndustry = flagIndustryVal.getValue("Product")
+  const flagBackgroundColorVal = useFsFlag("flagBackgroundColor")
+  const flagBackgroundColor = flagBackgroundColorVal.getValue("black")
 
   return (
     <header className="relative">
