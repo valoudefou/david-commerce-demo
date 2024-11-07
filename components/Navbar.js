@@ -47,7 +47,8 @@ const Navbar = () => {
     }, [isShown])
 
     // Get flag 
-    const flagIndustry = useFsFlag("flagIndustry", "Product")
+    const flagIndustryVal = useFsFlag("flagIndustry")
+    const flagIndustry = flagIndustryVal.getValue("Product")
     const flagCartFeature = useFsFlag("flagCartFeature", "MiniCart")
     const flagBackgroundColor = useFsFlag("flagBackgroundColor", "black")
 
@@ -89,7 +90,7 @@ const Navbar = () => {
                             <nav className="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
                                 <div className="flex justify-between items-center mb-6">
                                     <div className="text-2xl px-4 font-bold leading-relaxed inline-block py-3 whitespace-nowrap uppercase text-gray-900">
-                                        {flagIndustry.getValue()}
+                                        {flagIndustry}
                                         <span className="text-sm font-thin py-1 absolute">®</span>
                                     </div>
                                     <button onClick={() => setBurgerOn(!burgerOn)} className="navbar-close pr-3">
@@ -118,7 +119,7 @@ const Navbar = () => {
                     <div className="relative mr-auto flex justify-start lg:w-auto lg:static lg:block lg:justify-start">
                         <Link href='/'>
                             <div className="text-2xl px-5 font-bold leading-relaxed inline-block py-3 whitespace-nowrap uppercase text-gray-900">
-                                {flagIndustry.getValue()}
+                                {flagIndustry}
                                 <span className="text-sm font-thin py-1 absolute">®</span>
                             </div>
                         </Link>
