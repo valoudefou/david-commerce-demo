@@ -8,10 +8,10 @@ export default function Header() {
   const fs = useFlagship()
 
   // Get flag 
-  const flagImageSrcVal = getFlag("flagImageSrc")
+  const flagImageSrcVal = useFsFlag("flagImageSrc")
   const flagImageSrc = flagImageSrcVal.getValue("/cosmetic.jpg")
-  const flagBtnTextVal = getFlag("flagBtnText", "Shop")
-  const flagBtnText = flagBtnTextVal.getValue()
+  const flagBtnTextVal = useFsFlag("flagBtnText")
+  const flagBtnText = flagBtnTextVal.getValue("Shop")
   const flagIndustryVal = useFsFlag("flagIndustry")
   const flagIndustry = flagIndustryVal.getValue("Product")
   const flagBackgroundColorVal = useFsFlag("flagBackgroundColor")
