@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { HitType, useFlagship } from "@flagship.io/react-sdk"
+import { HitType, useFlagship, useFsFlag } from "@flagship.io/react-sdk"
 import Link from 'next/link'
 import Navbar from '../components/Navbar'
 
@@ -12,8 +12,8 @@ const flagImageSrcVal = getFlag("flagImageSrc")
 const flagImageSrc = flagImageSrcVal.getValue("/cosmetic.jpg")
 const flagBtnTextVal = getFlag("flagBtnText", "Shop")
 const flagBtnText = flagBtnTextVal.getValue()
-const flagIndustryVal = getFlag("flagIndustry", "Product")
-const flagIndustry = flagIndustryVal.getValue()
+const flagIndustryVal = useFsFlag("flagIndustry")
+const flagIndustry = flagIndustryVal.getValue("Product")
 const flagBackgroundColorVal = getFlag("flagBackgroundColor")
 const flagBackgroundColor = flagBackgroundColorVal.getValue("black")
 
